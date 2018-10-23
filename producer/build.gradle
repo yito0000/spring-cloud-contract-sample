@@ -1,0 +1,49 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.0.M2'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath "io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE"
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:2.0.2.BUILD-SNAPSHOT"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spring-cloud-contract'
+
+group = 'com.sample.contract.cloud.spring'
+project.ext {
+	artifactId = 'spring-contract-cloud-sample'
+	classifier = 'stubs'
+}
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.cloud:spring-cloud-contract-dependencies:2.0.2.BUILD-SNAPSHOT'
+	}
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
+	compile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
+}
