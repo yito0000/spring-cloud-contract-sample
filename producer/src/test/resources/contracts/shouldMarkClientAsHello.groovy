@@ -5,17 +5,16 @@ org.springframework.cloud.contract.spec.Contract.make {
         body("""{
         
         }""")
-        hearders {
-            hearder('Content-Type', 'application/json')
+        headers {
+
         }
     }
     response {
         status 200
-        body("""{
-        
-        }""")
-        hearders {
-            hearder('Content-Type', 'application/json')
+        body("""{"id":"id","value":"value"}""")
+        headers {
+            header('Content-Type', 'text/plain;charset=ISO-8859-1')
         }
     }
 }
+
